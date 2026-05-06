@@ -29,8 +29,10 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t veedhi25/service1:latest .
+          docker build -t veedhi1995/service1:${{ github.sha }} .
+          docker tag veedhi1995/service1:${{ github.sha }} veedhi1995/service1:latest
 
       - name: Push Docker Image
         run: |
-          docker push veedhi25/service1:latest
+          docker push veedhi1995/service1:${{ github.sha }}
+          docker push veedhi1995/service1:latest
