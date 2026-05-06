@@ -1,0 +1,36 @@
+name: Service1 CI
+
+on:
+  push:
+    paths:
+      - 'service1/**'
+      - '.github/workflows/service1.yml'
+
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./service1
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build Docker Image
+        run: |
+          docker build -t veedhi25/service1:latest .
+
+      - name: Push Docker Image
+        run: |
+          docker push veedhi25/service1:latest
