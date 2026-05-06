@@ -2,12 +2,11 @@ name: Service1 CI
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'service1/**'
       - '.github/workflows/service1.yml'
-
-    branches:
-      - main
 
 jobs:
   build-and-push:
